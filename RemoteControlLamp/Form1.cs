@@ -17,6 +17,8 @@ namespace RemoteControlLamp
 {
     public partial class btnGreenMed : Form
     {
+        //remote lamp
+        //testing
         String topic = "remotelamp";
         MqttClient client = new MqttClient(IPAddress.Parse("163.44.192.189")); //Make a client object and parses the IP address of the cloudserver
         SerialPort serialPort = new SerialPort();
