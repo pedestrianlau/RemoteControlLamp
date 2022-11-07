@@ -20,6 +20,7 @@ namespace RemoteControlLamp
         String topic = "remotelamp";
         MqttClient client = new MqttClient(IPAddress.Parse("163.44.192.189")); //Make a client object and parses the IP address of the cloudserver
         SerialPort serialPort = new SerialPort();
+        SerialPort serialPort2 = new SerialPort();
         public btnGreenMed()
         {
             InitializeComponent();
@@ -48,13 +49,13 @@ namespace RemoteControlLamp
         }
 
         private void btnGreenLow_Click(object sender, EventArgs e) //Green LED low brightness
-            {
+        {
             timer1.Enabled = true;
             serialPort.WriteLine("R");
         }
 
         private void button2_Click(object sender, EventArgs e) //Green LED medium brightness
-            {
+        {
             timer1.Enabled = true;
             serialPort.WriteLine("T");
         }
@@ -116,20 +117,110 @@ namespace RemoteControlLamp
 
                 if (myData.Contains("Turned off"))
                 {
+                    //serialPort.Close();
+                    //serialPort.BaudRate = 9600;
+                    //serialPort.PortName = "COM3";
+                    //serialPort.Open();
                     btnOff.Enabled = true;
                     this.richTextBox2.AppendText(sb.ToString() + "\n");
                 }
 
                 else if (myData.Contains("Red LED: low brightness"))
                 {
-                    //btnRedLow_Click(myData, e);
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
                     btnRedLow.Enabled = true;
                     this.richTextBox2.AppendText(sb.ToString() + "\n");
-                    //timer2.Enabled = true;
+                }
+
+                else if (myData.Contains("Red LED: medium brightness"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    btnRedMed.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
+                }
+
+                else if (myData.Contains("Red LED: maximum brightness"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    btnRedMax.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
+                }
+
+                else if (myData.Contains("Green LED: low brightness"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    btnGreenLow.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
+                }
+
+                else if (myData.Contains("Green LED: medium brightness"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    button2.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
+                }
+
+                else if (myData.Contains("Green LED: maximum brightness"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    btnGreenMax.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
+                }
+
+                else if (myData.Contains("Blue LED: low brightness"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    btnBlueLow.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
+                }
+
+                else if (myData.Contains("Blue LED: medium brightness"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    btnBlueMed.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
+                }
+
+                else if (myData.Contains("Blue LED: maximum brightness"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    btnBlueMax.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
+                }
+
+                else if (myData.Contains("Christmas Tree"))
+                {
+                    /*serialPort2.BaudRate = 9600;
+                    serialPort2.PortName = "COM3";
+                    serialPort2.Open();*/
+                    btnXmasMode.Enabled = true;
+                    this.richTextBox2.AppendText(sb.ToString() + "\n");
                 }
 
                 else if (myData.Contains("Turning on The Anh's lamp"))
                 {
+                    /*serialPort.Close();
+                    serialPort.BaudRate = 9600;
+                    serialPort.PortName = "COM3";
+                    serialPort.Open();*/
                     AnhLamp.Enabled = true;
                     this.richTextBox2.AppendText(sb.ToString() + "\n");
                 }
@@ -151,17 +242,23 @@ namespace RemoteControlLamp
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //serialPort.Open();
             String data = serialPort.ReadExisting();
             //richTextBox1.Text += "Data: " + data + "\n";
             richTextBox1.AppendText(data);
             byte[] bytes = Encoding.ASCII.GetBytes(data);
             client.Publish(topic, bytes);
+            //serialPort.Close();
         }
 
-        private void AnhLamp_Click(object sender, EventArgs e)
+        private void AnhLamp_Click(object sender, EventArgs e) //Turns on Anh's lamp through a relay
         {
+            serialPort2.BaudRate = 9600;
+            serialPort2.PortName = "COM3";
+            serialPort2.Open();
             timer1.Enabled = true;
-            serialPort.WriteLine("A");
+            serialPort2.WriteLine("A");
+            serialPort2.Close();
         }
     }
 }
