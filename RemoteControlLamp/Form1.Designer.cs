@@ -47,7 +47,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.AnhLamp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -214,10 +213,6 @@
             this.richTextBox2.TabIndex = 15;
             this.richTextBox2.Text = "";
             // 
-            // timer2
-            // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
             // AnhLamp
             // 
             this.AnhLamp.Location = new System.Drawing.Point(30, 330);
@@ -278,7 +273,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBox2;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button AnhLamp;
     }
 }
