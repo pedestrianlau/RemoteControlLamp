@@ -159,6 +159,15 @@ namespace RemoteControlLamp
             byte[] bytes = Encoding.ASCII.GetBytes(data);
             client.Publish(topic, bytes);
         }
+        
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            String data = serialPort.ReadExisting();
+            //richTextBox1.Text += "Data: " + data + "\n";
+            richTextBox1.AppendText(data);
+            byte[] bytes = Encoding.ASCII.GetBytes(data);
+            client.Publish(topic, bytes);
+        }
 
         private void AnhLamp_Click(object sender, EventArgs e)
         {
